@@ -1,6 +1,7 @@
 import streamlit as st
 from calculations import *
 import pandas as pd
+from common_widgets import sidebar_creds
 st.set_page_config(page_title="Result")
 
 st.markdown("""
@@ -33,6 +34,8 @@ if 'corr_c0' in st.session_state.keys():
     with st.sidebar:
         use_corr_val = st.checkbox("Use Corrected Values", value=False)
         st.session_state['corr_val_choice'] = use_corr_val
+
+sidebar_creds()
 
 if 'comp_data_input' in st.session_state.keys():
     sorption_data = st.session_state['comp_data_input']

@@ -1,14 +1,17 @@
 import streamlit as st
+from common_widgets import sidebar_creds
 
 st.set_page_config(
     page_title="Ideal Adsorption Solution Theory (IAST) App (Ver. Alpha)",
 )
 
+sidebar_creds()
+
 st.write("# Ideal Adsorption Solution Theory (IAST) - Application")
 
 st.markdown(
     """
-        <p class='note'>Please note that this is an Alpha versiona and still under development</p>
+        <p class='note'>Please note that this is an Alpha version and still under development</p>
         <h2>Current Features:</h2>
         <ul>
         <li>Data Input with File Upload and Editing</li>
