@@ -607,7 +607,7 @@ def plot_trm(title,c_data, q_data, c_MP_calc, q_MP_calc, c_single, q_single, q_s
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.set_xlabel(r'$C_{eq}$ (mg/L)', fontsize=14)
-    ax.set_ylabel(r'$C_{s}$ (mg/g)', fontsize=14)
+    ax.set_ylabel(r'$q$ (mg/g)', fontsize=14)
     ax.set_title(title, fontsize=18)
     ax.legend(fontsize=12)
     ax.grid(True, which="both", ls="--")
