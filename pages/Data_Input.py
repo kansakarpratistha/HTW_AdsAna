@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from process_data import *
 from calculations import *
+from common_widgets import sidebar_creds
 st.set_page_config(page_title="Data Input")
 
 st.markdown("""
@@ -55,7 +56,9 @@ with st.sidebar:
             st.download_button('Micropolltant Data', f, file_name = 'sample_micropollutant_data.csv', use_container_width=True) 
         with open('./sample_data/sample_ss.csv') as f:
             st.download_button('Single Solute Data', f, file_name = 'sample_singlesolute_data.csv', use_container_width=True) 
-        
+
+sidebar_creds()        
+
 if comp_data_input == False:
     sorption_data = ['mA_VL_mp', 'c_mp', 'q_mp', 'c0_mp', 'name_mp', 'mA_VL_ss', 'c_ss', 'c0_ss']
     for item in sorption_data:
