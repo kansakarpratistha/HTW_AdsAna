@@ -290,7 +290,7 @@ def plot_doc_curve(c_conc, exp_c, exp_q, calc_loading):
 
     # Adding plot labels and title
     ax.set_xlabel(r'$C_{eq}$ mg/L', fontsize=14)
-    ax.set_ylabel(r'$C_{s}$ mg/g', fontsize=14)
+    ax.set_ylabel(r'$q$ mg/g', fontsize=14)
     ax.set_title('Sorption Analysis', fontsize=18)
 
 
@@ -316,7 +316,7 @@ def plot_doc_log_curve(c_conc, exp_c, exp_q, calc_loading):
 
     # Adding plot labels and title
     ax.set_xlabel(r'$C_{eq}$ mg/L', fontsize=14)
-    ax.set_ylabel(r'$C_{s}$ mg/g', fontsize=14)
+    ax.set_ylabel(r'$q$ mg/g', fontsize=14)
     ax.set_title('Sorption Analysis (Log Scale)', fontsize=18)
 
     # Adding a grid for better readability
