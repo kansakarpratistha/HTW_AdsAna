@@ -23,6 +23,14 @@ def initialize_fractions(K, n, c0):
 # Single-solute isotherm model: Freundlich isotherm
 def freundlich_isotherm(c, K, n):
     return K * np.power(c, n)
+
+def freundlich_isotherm_iast(c, K, n):
+    K_reshaped = K[:, np.newaxis]
+    n_reshaped = n[:, np.newaxis]
+    result = K_reshaped * np.power(c, n_reshaped)
+
+    final_result = np.sum(result, axis=0)
+    return final_result
 # Calculate starting values for φ and qT
 def calculate_starting_values(c0_T, K, n, mA_VL):
     qT_start = 0.99 * c0_T / mA_VL

@@ -6,6 +6,7 @@ from calculations import *
 from common_widgets import sidebar_creds
 st.set_page_config(page_title="Data Input")
 
+
 st.markdown("""
 <style>
 	.stTabs [data-baseweb="tab-list"] {
@@ -180,6 +181,14 @@ with tab1:
     #             corr_c0 = a0 + a1 * st.session_state['sac0']
     #             st.session_state['corr_c_exp_lst'] = corr_c_exp_lst
     #             st.session_state['corr_c0'] = corr_c0
+
+    if 'dosage_lst' in st.session_state.keys():
+        with st.popover("Data Correction"):
+            data_corr_btn = st.checkbox("Apply Data Correction to Input Data")
+            if data_corr_btn:
+                corr_q = freundlich_isotherm_iast(st.session_state['c_exp_lst'],  st.session_state['K'],  st.session_state['n'])
+                st.session_state['corr_q'] = corr_q
+            st.info("Please note that the correction will be applied to the input experimental data to assure smoother input dataset.", icon="ℹ️")
 
 with tab2:
     if 'dosage_lst' not in st.session_state.keys():

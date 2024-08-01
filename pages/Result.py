@@ -30,10 +30,11 @@ st.markdown("""
 )
 st.write("# Results")
 st.session_state['corr_val_choice'] = False
-if 'corr_c0' in st.session_state.keys():
+if 'corr_q' in st.session_state.keys():
     with st.sidebar:
-        use_corr_val = st.checkbox("Use Corrected Values", value=False)
+        use_corr_val = st.checkbox("Use Corrected Dataset", value=False, help="Use corrected experimental dataset instead of true experimental dataset.")
         st.session_state['corr_val_choice'] = use_corr_val
+
 
 sidebar_creds()
 
@@ -53,12 +54,16 @@ else:
     c_calc_lst = st.session_state['c_calc_lst']
     q_calc_lst = st.session_state['q_calc_lst']
     if st.session_state['corr_val_choice']:
-        c_exp_lst = st.session_state['corr_c_exp_lst']
-        c0 = st.session_state['corr_c0']
+        # c_exp_lst = st.session_state['corr_c_exp_lst']
+        # c0 = st.session_state['corr_c0']
+        q_exp_lst = st.session_state['corr_q']
     else:
-        c_exp_lst = st.session_state['c_exp_lst']
-        c0 = st.session_state['c0']
-    q_exp_lst = st.session_state['q_exp_lst']
+        # c_exp_lst = st.session_state['c_exp_lst']
+        # c0 = st.session_state['c0']
+        q_exp_lst = st.session_state['q_exp_lst']
+    c_exp_lst = st.session_state['c_exp_lst']
+    c0 = st.session_state['c0']
+    
 
     dosage_lst = st.session_state['dosage_lst']
     K = st.session_state['K']    
