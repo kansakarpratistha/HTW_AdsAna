@@ -132,19 +132,25 @@ else:
                     "c (mg.C/L)": c_ss,
                     "q (mg.C/g)": q_ss
                 }, index = [i+1 for i in range(len(mA_VL_ss))])    
+                
                 single_solute = run_single_solute(df_ss)
                 df_single, K_single, n_single = single_solute
                 c_single = df_single['c (mg.C/L)']
                 q_single = df_single['q (mg.C/g)']
                 q_single_calc = df_single['calc q (mg.C/g)']
 
-                st.markdown("""<h4>Single Solute Isotherm Data</h4>""", unsafe_allow_html=True)
-                st.dataframe(df_single, hide_index=True)
+                st.subheader("Single Solute Isotherm Data")
 
-                st.markdown(f"""<h5>K: {round(K_single, 4)}</h5>""", unsafe_allow_html=True)
-                st.markdown(f"""<h5>n: {round(n_single, 4)}</h5>""", unsafe_allow_html=True)
+                col_df, col_Kn = st.columns([6,4], gap="large")                
+                with col_df:
+                    st.dataframe(df_single, hide_index=True)                    
+                with col_Kn:
+                    Kn_container = st.container(border=True)
+                    with Kn_container:
+                        st.markdown(f"""<h4>K: {round(K_single, 4)}</h4>""", unsafe_allow_html=True)
+                        st.markdown(f"""<h4>n: {round(n_single, 4)}</h4>""", unsafe_allow_html=True)
+
                 st.divider()
-
                 K_values = K + [K_single]
                 K_values[0] = 0.001
                 n_values = n + [n_single]
@@ -159,21 +165,47 @@ else:
                 iast_wo_corr_df = pd.DataFrame({'Dosage (mg.C/L)':adsorbent_doses, 'Exp Conc (mg.C/L)': c_mp, 'Calc Conc (mg.C/L)': c_without_corrected, 'Exp Loading (mg.C/g)': q_mp, 'Calc Loading (mg.C/g)': q_without_corrected})
                 iast_wo_corr_df.index += 1
                 st.session_state['iast_wo_corr_df'] = iast_wo_corr_df
-                st.markdown("""<h4>IAST Without Correction</h4>""", unsafe_allow_html=True)
+                st.subheader("IAST Without Correction")
                 st.dataframe(iast_wo_corr_df, hide_index=True)
-                st.markdown(f"""<h5>Mean Error: {round(mean_error, 2)}%</h5>""", unsafe_allow_html=True)
-
+                
+                col1, col2 = st.columns([2, 4])
+                with col1:
+                    st.subheader("Mean Error : ")
+                with col2:
+                    st.markdown(f'''
+                        <h3 class=value_text>{round(mean_error, 2)}%</h3>''', unsafe_allow_html=True)
+                    st.markdown('''
+                        <style>
+                            h3.value_text{
+                                padding-top: 0.75rem;
+                                font-size: 1.5rem;
+                            }
+                        </style>''', unsafe_allow_html=True)
                 st.divider()
 
                 K_MP_opt, n_MP_opt, trm_df, trm_mean_error = run_trm(K, n, c0_mp, mA_VL_mp, c_mp, c0, ci, qi, q_mp, c_single, q_single, q_single_calc, c_without_corrected, q_without_corrected)
                 st.session_state['trm_df'] = trm_df
-                st.markdown("""<h4>TRM Model</h4>""", unsafe_allow_html=True)
-                st.markdown(f"""<h5>Optimized K (Micro-Pollutant): {round(K_MP_opt, 4)}</h5>""", unsafe_allow_html=True)
-                st.markdown(f"""<h5>Optimized n (Micro-Pollutant): {round(n_MP_opt, 4)}</h5>""", unsafe_allow_html=True)
+                st.subheader("TRM Model")
+                st.markdown(f"""<h4>Optimized K: {round(K_MP_opt, 4)}</h4>""", unsafe_allow_html=True)
+                st.markdown(f"""<h4>Optimized n: {round(n_MP_opt, 4)}</h4>""", unsafe_allow_html=True)
                 trm_df.insert(0, 'Exp Conc (mg.C/L)', c_mp)
                 trm_df.insert(2, 'Exp Loading (mg.C/g)', q_mp)
                 st.dataframe(trm_df, hide_index=True)
-                st.markdown(f"""<h5>Mean Error: {round(trm_mean_error,2)}%</h5>""", unsafe_allow_html=True)
+                
+                col1, col2 = st.columns([2, 4])
+                with col1:
+                    st.subheader("Mean Error : ")
+                with col2:
+                    st.markdown(f'''
+                        <h3 class=value_text>{round(trm_mean_error, 2)}%</h3>''', unsafe_allow_html=True)
+                    st.markdown('''
+                        <style>
+                            h3.value_text{
+                                padding-top: 0.75rem;
+                                font-size: 1.5rem;
+                            }
+                        </style>''', unsafe_allow_html=True)
+                st.divider()
             else:
                 st.info("No Competetive Adsorption Input Data.")
 

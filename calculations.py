@@ -23,6 +23,27 @@ def initialize_fractions(K, n, c0):
 # Single-solute isotherm model: Freundlich isotherm
 def freundlich_isotherm(c, K, n):
     return K * np.power(c, n)
+    # # Ensure K and n are numpy arrays
+    # K = np.array([K]) if np.isscalar(K) else np.array(K)
+    # n = np.array([n]) if np.isscalar(n) else np.array(n)
+
+    # # Reshape to ensure compatibility
+    # K_reshaped = K[:, np.newaxis]
+    # n_reshaped = n[:, np.newaxis]
+
+    # # Ensure c is also a numpy array and has compatible shape
+    # c = np.array(c)
+
+    # # Check if the shapes of K_reshaped and n_reshaped are compatible with c
+    # if c.ndim == 1:
+    #     result = K_reshaped * np.power(c, n_reshaped)
+    # else:
+    #     raise ValueError("Shape of c is not compatible with reshaped K and n")
+
+    # # Sum along the appropriate axis
+    # final_result = np.sum(result, axis=0)
+    
+    # return final_result
 
 def freundlich_isotherm_iast(c, K, n):
     K_reshaped = K[:, np.newaxis]

@@ -54,7 +54,7 @@ with st.sidebar:
         with open('./sample_data/sample_iso.csv') as f:
             st.download_button('Isotherm Data', f, file_name = 'sample_isotherm_data.csv', use_container_width=True) 
         with open('./sample_data/sample_mp.csv') as f:
-            st.download_button('Micropolltant Data', f, file_name = 'sample_micropollutant_data.csv', use_container_width=True) 
+            st.download_button('Micropollutant Data', f, file_name = 'sample_micropollutant_data.csv', use_container_width=True) 
         with open('./sample_data/sample_ss.csv') as f:
             st.download_button('Single Solute Data', f, file_name = 'sample_singlesolute_data.csv', use_container_width=True) 
 
@@ -188,7 +188,7 @@ with tab1:
             if data_corr_btn:
                 corr_q = freundlich_isotherm_iast(st.session_state['c_exp_lst'],  st.session_state['K'],  st.session_state['n'])
                 st.session_state['corr_q'] = corr_q
-            st.info("Please note that the correction will be applied to the input experimental data to assure smoother input dataset.", icon="ℹ️")
+            st.info("Please note that the correction will be applied to the input experimental q data w.r.t K and n values to assure smoother input dataset.", icon="ℹ️")
 
 with tab2:
     if 'dosage_lst' not in st.session_state.keys():
@@ -198,8 +198,8 @@ with tab2:
         
         with col1:
             st.subheader("Isotherm Data")
-            if 'corr_c_exp_lst' in st.session_state.keys():
-                iso_input_df = pd.DataFrame({"mA/VL (mg.C/L)":st.session_state['dosage_lst'], "c (mg.C/L)":st.session_state['c_exp_lst'], "q (mg.C/g)":st.session_state['q_exp_lst'], "Corrected DOC": st.session_state['corr_c_exp_lst']})
+            if 'corr_q' in st.session_state.keys():
+                iso_input_df = pd.DataFrame({"mA/VL (mg.C/L)":st.session_state['dosage_lst'], "c (mg.C/L)":st.session_state['c_exp_lst'], "q (mg.C/g)":st.session_state['q_exp_lst'], "Corrected qi": st.session_state['corr_q']})
             else:
                 iso_input_df = pd.DataFrame({"mA/VL (mg.C/L)":st.session_state['dosage_lst'], "c (mg.C/L)":st.session_state['c_exp_lst'], "q (mg.C/g)":st.session_state['q_exp_lst']})
             iso_input_df.index += 1
@@ -215,9 +215,9 @@ with tab2:
                 <p class="value_text">c<sub>O</sub> Value : {round(st.session_state['c0'], 2)}</p>''', unsafe_allow_html=True)
             # st.markdown(f'''
             #     <p class="value_text">SAC0 Value : {round(st.session_state['sac0'], 2)}</p>''', unsafe_allow_html=True)
-            if 'corr_c0' in st.session_state.keys():
-                st.markdown(f'''
-                    <p class="value_text">Corrected c<sub>O</sub> : {round(st.session_state['corr_c0'], 2)}</p>''', unsafe_allow_html=True)
+            # if 'corr_c0' in st.session_state.keys():
+            #     st.markdown(f'''
+            #         <p class="value_text">Corrected c<sub>O</sub> : {round(st.session_state['corr_c0'], 2)}</p>''', unsafe_allow_html=True)
             st.divider()
             st.subheader("Adsorption Components")
             ads_input_df = pd.DataFrame({"K": st.session_state['K'], "n":st.session_state['n']}, index=[f"Component {i}" for i in range(len(K))])
